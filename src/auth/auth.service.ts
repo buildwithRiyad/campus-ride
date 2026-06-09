@@ -10,7 +10,6 @@ import * as bcrypt from 'bcryptjs';
 import { JwtService } from '@nestjs/jwt';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
-
 @Injectable()
 export class AuthService {
   constructor(
@@ -46,7 +45,6 @@ export class AuthService {
         email: savedUser.email,
         studentId: savedUser.studentId,
         department: savedUser.department,
-        semester: savedUser.semester,
         university: savedUser.university,
       },
     };
@@ -62,10 +60,7 @@ export class AuthService {
       throw new UnauthorizedException('Invalid email or password');
     }
 
-    const isMatch = await bcrypt.compare(
-      dto.password,
-      user.password,
-    );
+    const isMatch = await bcrypt.compare(dto.password, user.password);
 
     if (!isMatch) {
       throw new UnauthorizedException('Invalid email or password');
@@ -91,8 +86,19 @@ export class AuthService {
       throw new UnauthorizedException('User not found');
     }
 
-    const { password, ...userData } = user;
-
-    return userData;
+    return {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      phone: user.phone,
+      studentId: user.studentId,
+      department: user.department,
+      university: user.university,
+      profileImage: user.profileImage,
+      isVerified: user.isVerified,
+      rating: user.rating,
+      createdAt: user.createdAt,
+      updatedAt: user.updatedAt,
+    };
   }
 }

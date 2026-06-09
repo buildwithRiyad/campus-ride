@@ -1,22 +1,17 @@
-import {
-  IsEmail,
-  IsString,
-  MinLength,
-  IsOptional,
-} from 'class-validator';
+import { IsEmail, IsString, MinLength, IsOptional } from 'class-validator';
 
 export class RegisterDto {
   @IsString()
-  name: string;
+  name!: string;
 
   @IsEmail()
-  email: string;
+  email!: string;
 
   @MinLength(6)
-  password: string;
+  password!: string;
 
   @IsString()
-  studentId: string;
+  studentId!: string;
 
   @IsOptional()
   @IsString()
@@ -24,5 +19,5 @@ export class RegisterDto {
 
   @IsOptional()
   @IsString()
-  semester?: string;
+  phone?: string; // new optional field
 }

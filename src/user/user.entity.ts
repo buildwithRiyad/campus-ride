@@ -1,4 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 @Entity('users')
 export class User {
@@ -14,15 +20,30 @@ export class User {
   @Column()
   password!: string;
 
+  @Column({ nullable: true })
+  phone?: string;
+
   @Column()
   studentId!: string;
 
   @Column({ nullable: true })
-  department!: string;
-
-  @Column({ nullable: true })
-  semester!: string;
+  department?: string;
 
   @Column({ default: 'AIUB' })
   university!: string;
+
+  @Column({ nullable: true })
+  profileImage?: string;
+
+  @Column({ default: false })
+  isVerified!: boolean;
+
+  @Column({ type: 'float', default: 0 })
+  rating!: number;
+
+  @CreateDateColumn()
+  createdAt!: Date;
+
+  @UpdateDateColumn()
+  updatedAt!: Date;
 }
