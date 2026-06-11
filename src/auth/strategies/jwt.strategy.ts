@@ -8,12 +8,11 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       ignoreExpiration: false,
-      secretOrKey: 'SECRET_KEY', // আপনার .env এর JWT_SECRET ব্যবহার করুন
+      secretOrKey: process.env.JWT_SECRET || 'SECRET_KEY',
     });
   }
 
   validate(payload: { id: number; email: string }) {
-    // payload থেকে যা যা চান, সেগুলো req.user এ বসবে
     return { id: payload.id, email: payload.email };
   }
 }

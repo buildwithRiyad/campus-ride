@@ -4,12 +4,16 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
 } from 'typeorm';
 
 @Entity('users')
 export class User {
   @PrimaryGeneratedColumn()
   id!: number;
+
+  @OneToMany('Ride', (ride: any) => ride.creator)
+  rides!: any[];
 
   @Column()
   name!: string;
